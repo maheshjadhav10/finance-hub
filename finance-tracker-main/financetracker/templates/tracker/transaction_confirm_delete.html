@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Delete Transaction — Finance Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm rounded-4 border-danger" style="border: 1px solid #fca5a5 !important;">
+      <div class="card-body p-4 text-center">
+        <i class="bi bi-exclamation-triangle-fill text-danger fs-1 mb-3 d-block"></i>
+        <h5 class="fw-bold mb-2">Delete Transaction?</h5>
+        <p class="text-muted mb-1">You're about to delete:</p>
+        <div class="bg-light rounded-3 p-3 mb-4 text-start">
+          <strong>{{ transaction.category }}</strong> &mdash; {{ transaction.get_type_display }}<br>
+          <strong class="amount-{{ transaction.type }}">${{ transaction.amount|floatformat:2 }}</strong>
+          on {{ transaction.date }}
+          {% if transaction.notes %}<br><span class="text-muted small">{{ transaction.notes }}</span>{% endif %}
+        </div>
+        <p class="text-danger small">This action cannot be undone.</p>
+        <form method="post" class="d-flex gap-2 justify-content-center">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger px-4 fw-semibold">
+            <i class="bi bi-trash me-1"></i> Yes, Delete
+          </button>
+          <a href="{% url 'transaction_list' %}" class="btn btn-outline-secondary px-4">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+packages:
+  "framer-motion": "Smooth page transitions and micro-interactions"
+  "react-hook-form": "Robust form state management"
+  "@hookform/resolvers": "Zod schema validation for forms"
+  "date-fns": "Date formatting and manipulation"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility function to efficiently merge Tailwind CSS classes"
+
+images:
+  - path: "artifacts/finance-tracker/public/images/login-bg.png"
+    description: "A premium, abstract 3D mesh gradient background in rich teal, emerald green, and deep slate, with soft volumetric lighting and subtle glassmorphism effects. Clean, professional, and modern."
+    aspect_ratio: "16:9"
+  - path: "artifacts/finance-tracker/public/images/logo.png"
+    description: "A minimal, geometric logo mark for a modern finance app. It features intertwined sleek shapes in bright teal on a transparent background, conveying growth and stability."
+    aspect_ratio: "1:1"
+
+notes:
+  - "App uses session-based authentication; all requests to /api include credentials."
+  - "Using generated hooks from @workspace/api-client-react."
+  - "Tailwind v4 CSS configuration is placed inside the @theme block in index.css."

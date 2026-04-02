@@ -1,0 +1,21 @@
+kind = "web"
+previewPath = "/"
+title = "Finance Tracker (Django)"
+version = "1.0.0"
+id = "artifacts/finance-tracker"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 8000
+
+[services.development]
+run = "cd /home/runner/workspace/financetracker && python3 manage.py runserver 0.0.0.0:8000"
+
+[services.env]
+PORT = "8000"

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Monthly Summary — Finance Tracker{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h4 class="fw-bold mb-0">Monthly Summary</h4>
+    <p class="text-muted small mb-0">Income vs. Expense for the last 12 months</p>
+  </div>
+</div>
+
+<!-- Monthly Table -->
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+  <div class="card-body px-4">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th class="text-success">Income</th>
+            <th class="text-danger">Expense</th>
+            <th>Balance</th>
+            <th style="width:35%">Breakdown</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in monthly_data %}
+          <tr>
+            <td class="fw-semibold">{{ row.label }}</td>
+            <td class="amount-income">${{ row.income|floatformat:2 }}</td>
+            <td class="amount-expense">${{ row.expense|floatformat:2 }}</td>
+            <td class="fw-semibold {% if row.balance >= 0 %}amount-income{% else %}amount-expense{% endif %}">
+              ${{ row.balance|floatformat:2 }}
+            </td>
+            <td>
+              {% if row.income > 0 or row.expense > 0 %}
+                {% with total=row.income|add:row.expense %}
+                  <div class="d-flex gap-1 align-items-center">
+                    {% if row.income > 0 %}
+                    <div class="progress flex-fill" style="height:10px;" title="Income: ${{ row.income|floatformat:2 }}">
+                      <div class="progress-bar bg-success"
+                           style="width: {% widthratio row.income total 100 %}%"></div>
+                    </div>
+                    {% endif %}
+                    {% if row.expense > 0 %}
+                    <div class="progress flex-fill" style="height:10px;" title="Expense: ${{ row.expense|floatformat:2 }}">
+                      <div class="progress-bar bg-danger"
+                           style="width: {% widthratio row.expense total 100 %}%"></div>
+                    </div>
+                    {% endif %}
+                  </div>
+                {% endwith %}
+              {% else %}
+                <span class="text-muted small">No data</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Legend -->
+<div class="d-flex gap-4 text-muted small">
+  <span><span class="badge bg-success me-1">&nbsp;</span> Income</span>
+  <span><span class="badge bg-danger me-1">&nbsp;</span> Expense</span>
+</div>
+{% endblock %}
